@@ -1,0 +1,16 @@
+{
+  "name": "clinicsys",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/luxontw/clinicsys.git",
+  "author": "luxontw <mailbox@newxe.tw>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node index.js",
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.1",
+    "socket.io": "^4.5.0"
+  }
+}
