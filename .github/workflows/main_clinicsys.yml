@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'clinicsys'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_40964BA8D58946829B5137D992047782 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0D121A7B9B204545818F594CAB8A9A28 }}
           package: .
