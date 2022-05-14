@@ -2,10 +2,11 @@ import { Routes, Route } from "solid-app-router";
 
 import { socket } from "./network/websocket";
 
-import Home from "./pages/Home";
 import MainMenu from "./components/MainMenu";
-import Features from "./pages/Features";
-import About from "./pages/About";
+import Queued from "./pages/Queued";
+import Enqueue from "./pages/Enqueue";
+import Dequeue from "./pages/Dequeue";
+
 import styles from "./App.module.css";
 import { onMount } from "solid-js";
 
@@ -26,9 +27,9 @@ export default function App() {
       <MainMenu></MainMenu>
       <header class={styles.header}>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/features" element={<Features />}></Route>
-          <Route path="/about" element={<About />}></Route>
+          <Route path="/" element={<Queued />}></Route>
+          <Route path="/appointment" element={<Enqueue />}></Route>
+          <Route path="/oncall" element={<Dequeue />}></Route>
         </Routes>
       </header>
     </div>
