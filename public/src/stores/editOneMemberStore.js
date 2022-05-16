@@ -1,7 +1,7 @@
 import { createStore } from "solid-js/store";
 
 export const [editOneMemberStore, setEditOneMemberStore] = createStore({
-  mode: "text", // text | input | modal | add
+  mode: "text",
   index: -1,
-  info: { id: "", name: "", email: "", status: "" },
+  info: { id: "", name: "", nhi_card_no: "", phone_no: ""},
 });
