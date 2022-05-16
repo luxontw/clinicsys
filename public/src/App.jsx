@@ -1,6 +1,10 @@
 import { Routes, Route } from "solid-app-router";
-
+import { memberStore, setMemberStore } from "./stores/memberStore";
 import { socket } from "./network/websocket";
+import {
+  editOneMemberStore,
+  setEditOneMemberStore,
+} from "./stores/editOneMemberStore";
 
 import MainMenu from "./components/MainMenu";
 import Home from "./pages/Home";
@@ -14,11 +18,14 @@ export default function App() {
   onMount(() => {
     socket.on("update-member", (data) => {
       console.log(`${socket.id} update a member:`, data);
-      alert(JSON.stringify(data, null, 2));
+      setEditOneMemberStore("mode", "text");
+      setMemberStore("members", data.index, data.data);
     });
     socket.on("delete-member", (data) => {
       console.log(`${socket.id} delete a member:`, data);
-      alert(JSON.stringify(data, null, 2));
+      const newMembers = [...memberStore.members];
+      newMembers.splice(data.index, 1);
+      setMemberStore({ members: newMembers });
     });
   });
   return (

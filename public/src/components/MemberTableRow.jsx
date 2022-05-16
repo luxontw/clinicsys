@@ -39,18 +39,19 @@ export default function MemberTableRow(props) {
           <td>{item.phone}</td>
           <td>
             <button
-              className="btn btn-info mx-2"
+              className="btn btn-danger mx-2"
               onClick={(e) => {
                 const newMembers = [...memberStore.members];
-                newMembers.splice(props.index(), 0, cloneTheMember());
+                newMembers.splice(props.index(), 1);
+
                 setMemberStore({ members: newMembers });
-                setEditOneMemberStore({
-                  mode: "add",
+                socket.emit("delete-member", {
+                  from: "TableMemberRow-delete-trash",
                   index: props.index(),
                 });
               }}
             >
-              <i class="bi bi-clipboard"></i>
+              <i class="bi bi-trash"></i>
             </button>
             <button
               className="btn btn-primary mx-2"
@@ -62,21 +63,6 @@ export default function MemberTableRow(props) {
               }}
             >
               <i class="bi bi-pencil-square"></i>
-            </button>
-            <button
-              className="btn btn-danger mx-2"
-              onClick={(e) => {
-                const newMembers = [...memberStore.members];
-                newMembers.splice(props.index(), 1);
-
-                setMemberStore({ members: newMembers });
-                socket.emit("delete-member", {
-                  from: "TableMemberRow-delete-trash",
-                  data: props.index(),
-                });
-              }}
-            >
-              <i class="bi bi-trash"></i>
             </button>
           </td>
         </Match>
@@ -127,7 +113,7 @@ export default function MemberTableRow(props) {
           </td>
           <td>
             <button
-              class="btn btn-primary mx-2"
+              class="btn btn-success mx-2"
               onClick={(e) => {
                 batch(() => {
                   setEditOneMemberStore("mode", "text");
@@ -140,6 +126,7 @@ export default function MemberTableRow(props) {
 
                   socket.emit("update-member", {
                     from: "TableMemberRow-update-check",
+                    index: editOneMemberStore.index,
                     data: cloneTheMember(),
                   });
                 });
@@ -148,7 +135,7 @@ export default function MemberTableRow(props) {
               <i class="bi bi-check-lg"></i>
             </button>
             <button
-              class="btn btn-primary mx-2"
+              class="btn btn-warning mx-2"
               onClick={(e) => {
                 setEditOneMemberStore("mode", "text");
               }}
