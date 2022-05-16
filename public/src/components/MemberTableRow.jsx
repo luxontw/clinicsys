@@ -1,11 +1,11 @@
 import { createSignal, Switch, Match, batch } from "solid-js";
 import { InputGroup, FormControl } from "solid-bootstrap";
 import { memberStore, setMemberStore } from "../stores/memberStore";
-import { socket } from "../network/websocket";
 import {
   editOneMemberStore,
   setEditOneMemberStore,
 } from "../stores/editOneMemberStore";
+import { socket } from "../network/websocket";
 
 export default function MemberTableRow(props) {
   const item = props.item;

@@ -1,6 +1,6 @@
-import { memberStore, setMemberStore } from "../stores/memberStore";
 import { Table } from "solid-bootstrap";
 import { For } from "solid-js";
+import { memberStore, setMemberStore } from "../stores/memberStore";
 import MemberTableRow from "./MemberTableRow";
 
 export default function ShowMemberTable(props) {

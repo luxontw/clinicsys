@@ -1,20 +1,20 @@
 const express = require("express");
+const { Socket } = require("socket.io");
+
 const app = express();
 
 const path = require("path");
-const { Socket } = require("socket.io");
 const docRoot = path.join(__dirname, "public/dist");
 console.log(docRoot);
-
 app.use(express.static(docRoot));
 
 const server = require("http").createServer(app);
+
 const io = require("socket.io")(server, {
   cors: {
     origin: "*",
   },
 });
-
 io.on("connection", (socket) => {
     console.log(`A user ${socket.id} connected`);
     socket.on("update-member", (data) => {
