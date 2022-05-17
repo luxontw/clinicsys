@@ -7,7 +7,13 @@ const path = require("path");
 const docRoot = path.join(__dirname, "public/dist");
 console.log(docRoot);
 app.use(express.static(docRoot));
-
+app.get('/*', function(req, res) {
+  res.sendFile(path.join(docRoot, 'index.html'), function(err) {
+    if (err) {
+      res.status(500).send(err)
+    }
+  })
+})
 const server = require("http").createServer(app);
 
 const io = require("socket.io")(server, {
