@@ -7,13 +7,13 @@ const path = require("path");
 const docRoot = path.join(__dirname, "public/dist");
 console.log(docRoot);
 app.use(express.static(docRoot));
-app.get('/*', function(req, res) {
-  res.sendFile(path.join(docRoot, 'index.html'), function(err) {
+app.get("/*", function (req, res) {
+  res.sendFile(path.join(docRoot, "index.html"), function (err) {
     if (err) {
-      res.status(500).send(err)
+      res.status(500).send(err);
     }
-  })
-})
+  });
+});
 const server = require("http").createServer(app);
 
 const io = require("socket.io")(server, {
@@ -24,9 +24,9 @@ const io = require("socket.io")(server, {
 io.on("connection", (socket) => {
   console.log(`A user ${socket.id} connected`);
   socket.on("create-member", (data) => {
-    console.log(`${socket.id} create`,data);
+    console.log(`${socket.id} create`, data);
     socket.broadcast.emit("create-member", data);
-})
+  });
   socket.on("update-member", (data) => {
     console.log(`${socket.id} update`, data);
     socket.broadcast.emit("update-member", data);
