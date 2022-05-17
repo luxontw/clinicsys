@@ -1,20 +1,25 @@
-import { batch } from "solid-js";
+import { createSignal, batch } from "solid-js";
 import { Table } from "solid-bootstrap";
 import { InputGroup, FormControl } from "solid-bootstrap";
 import { memberStore, setMemberStore } from "../stores/memberStore";
-import {
-  editOneMemberStore,
-  setEditOneMemberStore,
-} from "../stores/editOneMemberStore";
 import { socket } from "../network/websocket";
 
 export default function MemberEnqueue(props) {
-  var newMember = {
+  const newMember = {
     id: "",
     name: "",
     nhi_card_no: "",
     phone: "",
   };
+  const [theMember, setTheMember] = createSignal(newMember);
+  function cloneTheMember() {
+    return JSON.parse(JSON.stringify(theMember()));
+  }
+  function updateNewMember(key, value) {
+    const copyMember = cloneTheMember();
+    copyMember[key] = value;
+    setTheMember(copyMember);
+  }
   return (
     <Table striped bordered hover variant="dark">
       <tbody>
@@ -28,7 +33,7 @@ export default function MemberEnqueue(props) {
                 type="text"
                 style={{ width: `4ch`, "font-size": "1.1rem" }}
                 placeholder="姓名"
-                onChange={(e) => (newMember["name"] = e.target.value)}
+                onChange={(e) => updateNewMember("name", e.target.value)}
               />
             </InputGroup>
           </td>
@@ -38,7 +43,7 @@ export default function MemberEnqueue(props) {
                 type="text"
                 style={{ width: `4ch`, "font-size": "1.1rem" }}
                 placeholder="健保卡號"
-                onChange={(e) => (newMember["nhi_card_no"] = e.target.value)}
+                onChange={(e) => updateNewMember("nhi_card_no", e.target.value)}
               />
             </InputGroup>
           </td>
@@ -48,7 +53,7 @@ export default function MemberEnqueue(props) {
                 type="text"
                 style={{ width: `4ch`, "font-size": "1.1rem" }}
                 placeholder="手機號碼"
-                onChange={(e) => (newMember["phone"] = e.target.value)}
+                onChange={(e) => updateNewMember("phone", e.target.value)}
               />
             </InputGroup>
           </td>
@@ -58,14 +63,12 @@ export default function MemberEnqueue(props) {
               onClick={(e) => {
                 batch(() => {
                   const newMembers = [...memberStore.members];
-                  const len = newMembers.length;
-                  newMember["id"] = len + 1;
-                  console.log(newMember);
-                  newMembers.push(newMember);
+                  theMember().id = newMembers.length + 1;
+                  newMembers.push(cloneTheMember());
                   setMemberStore({ members: newMembers });
                   socket.emit("create-member", {
                     from: "MemberEnqueue-create-check",
-                    data: newMember,
+                    data: cloneTheMember(),
                   });
                 });
               }}
