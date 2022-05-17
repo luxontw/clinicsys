@@ -5,7 +5,6 @@ import MemberDequeue from "../components/MemberDequeue";
 export default function Appointment() {
   return (
     <div>
-      <MemberDequeue />
       <MemberEnqueue />
       <ShowMemberTable />
     </div>
