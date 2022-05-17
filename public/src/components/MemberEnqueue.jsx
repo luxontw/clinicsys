@@ -63,11 +63,11 @@ export default function MemberEnqueue(props) {
               onClick={(e) => {
                 batch(() => {
                   const newMembers = [...memberStore.members];
-                  theMember().id = newMembers.length + 1;
+                  theMember().id = newMembers[newMembers.length - 1].id + 1;
                   newMembers.push(cloneTheMember());
                   setMemberStore({ members: newMembers });
                   socket.emit("create-member", {
-                    from: "MemberEnqueue-create-check",
+                    from: "MemberEnqueue-create-member-check",
                     data: cloneTheMember(),
                   });
                 });

@@ -46,7 +46,7 @@ export default function MemberTableRow(props) {
 
                 setMemberStore({ members: newMembers });
                 socket.emit("delete-member", {
-                  from: "TableMemberRow-delete-trash",
+                  from: "TableMemberRow-delete-member-check",
                   index: props.index(),
                 });
               }}
@@ -125,7 +125,7 @@ export default function MemberTableRow(props) {
                   );
 
                   socket.emit("update-member", {
-                    from: "TableMemberRow-update-check",
+                    from: "TableMemberRow-update-member-check",
                     index: editOneMemberStore.index,
                     data: cloneTheMember(),
                   });

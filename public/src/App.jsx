@@ -11,6 +11,10 @@ import {
   editOneMemberStore,
   setEditOneMemberStore,
 } from "./stores/editOneMemberStore";
+import {
+  oncallMemberStore,
+  setOncallMemberStore,
+} from "./stores/oncallMemberStore";
 
 export default function App() {
   onMount(() => {
@@ -25,6 +29,10 @@ export default function App() {
       console.log(`${socket.id} update a member:`, data);
       setEditOneMemberStore("mode", "text");
       setMemberStore("members", data.index, data.data);
+    });
+    socket.on("update-oncallMember", (data) => {
+      console.log(`${socket.id} update oncallMember:`, data);
+      setOncallMemberStore({ oncallMember: data.data });
     });
     socket.on("delete-member", (data) => {
       console.log(`${socket.id} delete a member:`, data);
