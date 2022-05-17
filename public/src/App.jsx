@@ -14,6 +14,13 @@ import {
 
 export default function App() {
   onMount(() => {
+    socket.on("create-member", (data) => {
+      console.log(`${socket.id} create a member:`, data);
+      const newMembers = [...memberStore.members];
+      newMembers.push(data.data);
+      setEditOneMemberStore("mode", "text");
+      setMemberStore({ members: newMembers });
+    });
     socket.on("update-member", (data) => {
       console.log(`${socket.id} update a member:`, data);
       setEditOneMemberStore("mode", "text");

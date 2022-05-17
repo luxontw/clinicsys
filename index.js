@@ -17,6 +17,10 @@ const io = require("socket.io")(server, {
 });
 io.on("connection", (socket) => {
     console.log(`A user ${socket.id} connected`);
+    socket.on("create-member", (data) => {
+      console.log(`${socket.id} create`,data);
+      socket.broadcast.emit("create-member", data);
+  })
     socket.on("update-member", (data) => {
         console.log(`${socket.id} update`,data);
         socket.broadcast.emit("update-member", data);
