@@ -3,11 +3,11 @@ import { Container } from "solid-bootstrap";
 
 export default function Footer(props) {
   return (
-    <footer class="footer mt-auto py-3 bg-light">
+    <footer class="footer mt-auto py-3 bg-dark">
       <div class="container">
         <a
           href="/"
-          class="mb-3 me-2 mb-md-0 text-center text-muted text-decoration-none lh-1"
+          class="mb-3 me-2 mb-md-0 text-muted"
         >
           <img alt="" src={logo} width="24" height="24" />
         </a>

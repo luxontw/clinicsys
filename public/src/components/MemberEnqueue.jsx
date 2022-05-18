@@ -24,14 +24,14 @@ export default function MemberEnqueue(props) {
     <Table striped bordered hover variant="dark">
       <tbody>
         <tr>
-          <td>
+          <td style={{ width: `13ch`, "font-size": "1.5rem" }}>
             請輸入患者資訊
           </td>
           <td>
             <InputGroup>
               <FormControl
                 type="text"
-                style={{ width: `4ch`, "font-size": "1.1rem" }}
+                style={{ width: `13ch`, "font-size": "1.1rem" }}
                 placeholder="姓名"
                 onChange={(e) => updateNewMember("name", e.target.value)}
               />
@@ -41,7 +41,7 @@ export default function MemberEnqueue(props) {
             <InputGroup>
               <FormControl
                 type="text"
-                style={{ width: `4ch`, "font-size": "1.1rem" }}
+                style={{ width: `13ch`, "font-size": "1.1rem" }}
                 placeholder="健保卡號"
                 onChange={(e) => updateNewMember("nhi_card_no", e.target.value)}
               />
@@ -51,7 +51,7 @@ export default function MemberEnqueue(props) {
             <InputGroup>
               <FormControl
                 type="text"
-                style={{ width: `4ch`, "font-size": "1.1rem" }}
+                style={{ width: `13ch`, "font-size": "1.1rem" }}
                 placeholder="手機號碼"
                 onChange={(e) => updateNewMember("phone", e.target.value)}
               />
