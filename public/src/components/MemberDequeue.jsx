@@ -1,4 +1,4 @@
-import { createSignal, batch } from "solid-js";
+import { createSignal, batch, Show } from "solid-js";
 import { Table } from "solid-bootstrap";
 import { memberStore, setMemberStore } from "../stores/memberStore";
 import {
@@ -21,20 +21,25 @@ export default function MemberDequeue(props) {
       <tbody>
         <tr>
           <td>
-            <p>看診中患者</p>
+            看診中患者
           </td>
-          <td>
-            <p>{oncallMemberStore.oncallMember.id}</p>
-          </td>
-          <td>
-            <p>{oncallMemberStore.oncallMember.name}</p>
-          </td>
-          <td>
-            <p>{oncallMemberStore.oncallMember.nhi_card_no}</p>
-          </td>
-          <td>
-            <p>{oncallMemberStore.oncallMember.phone}</p>
-          </td>
+          <Show
+            when={oncallMemberStore.oncallMember.id !== ""}
+            fallback={<td>尚未開始看診</td>}
+          >
+            <td>
+              {oncallMemberStore.oncallMember.id}
+            </td>
+            <td>
+              {oncallMemberStore.oncallMember.name}
+            </td>
+            <td>
+              {oncallMemberStore.oncallMember.nhi_card_no}
+            </td>
+            <td>
+              {oncallMemberStore.oncallMember.phone}
+            </td>
+          </Show>
           <td>
             <button
               class="btn btn-success mx-2"
@@ -54,7 +59,7 @@ export default function MemberDequeue(props) {
                 });
               }}
             >
-              <i class="bi bi-check-lg"></i>
+              <value>下一位</value>
             </button>
           </td>
         </tr>

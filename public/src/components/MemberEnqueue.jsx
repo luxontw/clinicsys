@@ -25,7 +25,7 @@ export default function MemberEnqueue(props) {
       <tbody>
         <tr>
           <td>
-            <p>掛號</p>
+            請輸入患者資訊
           </td>
           <td>
             <InputGroup>
@@ -73,7 +73,7 @@ export default function MemberEnqueue(props) {
                 });
               }}
             >
-              <i class="bi bi-check-lg"></i>
+              <value>掛號</value>
             </button>
           </td>
         </tr>

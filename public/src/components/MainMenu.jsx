@@ -10,7 +10,7 @@ export default function MainMenu() {
           <span class="mx-2">門診掛號系統</span>
         </Navbar.Brand>
         <Nav className="me-auto">
-          <Nav.Link href="/">等待中</Nav.Link>
+          <Nav.Link href="/">等待大廳</Nav.Link>
           <Nav.Link href="/appointment">掛號</Nav.Link>
           <Nav.Link href="/oncall">看診</Nav.Link>
         </Nav>

@@ -1,6 +1,7 @@
 import styles from "./App.module.css";
 import { Routes, Route } from "solid-app-router";
 import MainMenu from "./components/MainMenu";
+import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Appointment from "./pages/Appointment";
 import Oncall from "./pages/Oncall";
@@ -43,7 +44,7 @@ export default function App() {
   });
   return (
     <div class={styles.App}>
-      <MainMenu></MainMenu>
+      <MainMenu />
       <header class={styles.header}>
         <Routes>
           <Route path="/" element={<Home />}></Route>
@@ -51,6 +52,7 @@ export default function App() {
           <Route path="/oncall" element={<Oncall />}></Route>
         </Routes>
       </header>
+      <Footer />
     </div>
   );
 }

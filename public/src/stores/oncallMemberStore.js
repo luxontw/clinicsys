@@ -1,10 +1,10 @@
 import { createStore } from "solid-js/store";
 
 let oncallMember = {
-  id: "Null",
-  name: "Null",
-  nhi_card_no: "Null",
-  phone: "Null",
+  id: "",
+  name: "",
+  nhi_card_no: "",
+  phone: "",
 };
 export const [oncallMemberStore, setOncallMemberStore] = createStore({
   oncallMember: oncallMember,

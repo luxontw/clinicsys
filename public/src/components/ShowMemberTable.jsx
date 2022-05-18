@@ -17,7 +17,7 @@ export default function ShowMemberTable(props) {
           </tr>
         </thead>
         <tbody>
-          <For each={memberStore.members} fallback={<div>Loading...</div>}>
+          <For each={memberStore.members} fallback={<div>今日看診已結束</div>}>
             {(item, index) => {
               return <MemberTableRow item={item} index={index} />;
             }}

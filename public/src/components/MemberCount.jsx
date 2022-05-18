@@ -1,3 +1,4 @@
+import { Show } from "solid-js";
 import { Table } from "solid-bootstrap";
 import { memberStore, setMemberStore } from "../stores/memberStore";
 import {
@@ -17,10 +18,15 @@ export default function MemberCount() {
       <tbody>
         <tr>
           <td>
-            <p>{memberStore.members.length}</p>
+            {memberStore.members.length}
           </td>
           <td>
-            <p>{oncallMemberStore.oncallMember.id}</p>
+          <Show
+            when={oncallMemberStore.oncallMember.id !== ""}
+            fallback={<>尚未開始看診</>}
+          >
+            {oncallMemberStore.oncallMember.id}
+          </Show>
           </td>
         </tr>
       </tbody>
