@@ -116,7 +116,7 @@ router.get("/", async (req, res) => {
   res.json(data);
 });
 
-//http://localhost:8888/api/members/status/active
+// http://localhost:8888/api/members/status/active
 router.get("/status/:flag", (req, res) => {
   const newData = data.filter((el, idx) => el.status === req.params.flag);
   console.log(req.params.flag);
@@ -171,7 +171,7 @@ const updateMemberById = async (id, req, res) => {
     console.log(`id=${id}: 資料不存在！`);
     return;
   }
-  
+
   if (req.body.name) {
     data[pos].name = req.body.name;
   }
@@ -201,7 +201,7 @@ router.put("/", (req, res) => {
 
 router.put("/id/:id", (req, res) => {
   updateMemberById(req.params.id * 1, req, res);
-})
+});
 
 const deleteMemberById = async (id, req, res) => {
   const pos = data.findIndex((el, idx) => el.id === id);
@@ -215,7 +215,7 @@ const deleteMemberById = async (id, req, res) => {
     res.status(400).json({ err: `刪除(id:${id})資料失敗` });
     return;
   }
-  const theMeber = {...data[pos]};
+  const theMeber = { ...data[pos] };
   data.splice(pos, 1);
   res.json(theMeber);
 };

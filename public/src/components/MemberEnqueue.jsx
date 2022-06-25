@@ -88,18 +88,6 @@ export default function MemberEnqueue(props) {
                   });
                 });
               }}
-              // onClick={async (e) => {
-              //   batch(() => {
-              //     const newMembers = [...memberStore.members];
-              //     theMember().id = newMembers[newMembers.length - 1].id + 1;
-              //     newMembers.push(cloneTheMember());
-              //     setMemberStore({ members: newMembers });
-              //     socket.emit("create-member", {
-              //       from: "MemberEnqueue-create-member-check",
-              //       data: cloneTheMember(),
-              //     });
-              //   });
-              // }}
             >
               <value>掛號</value>
             </button>
