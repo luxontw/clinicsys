@@ -80,7 +80,7 @@ router.get("/drop", async (req, res) => {
   }
 });
 
-router.get("/new", async (req, res) => {
+router.get("/reset", async (req, res) => {
   try {
     let rs = await tblMember.drop();
     if (rs === null) {

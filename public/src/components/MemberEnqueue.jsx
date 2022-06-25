@@ -1,7 +1,7 @@
 import { createSignal, batch } from "solid-js";
 import { Table } from "solid-bootstrap";
 import { InputGroup, FormControl } from "solid-bootstrap";
-import { memberStore, setMemberStore } from "../stores/memberStore";
+import { memberStore, setMemberStore, memberStoreApi } from "../stores/memberStore";
 import { socket } from "../network/websocket";
 
 export default function MemberEnqueue(props) {
@@ -10,6 +10,8 @@ export default function MemberEnqueue(props) {
     name: "",
     nhi_card_no: "",
     phone: "",
+    email: "",
+    status: "0",
   };
   const [theMember, setTheMember] = createSignal(newMember);
   function cloneTheMember() {
@@ -58,9 +60,23 @@ export default function MemberEnqueue(props) {
             </InputGroup>
           </td>
           <td>
+            <InputGroup>
+              <FormControl
+                type="text"
+                style={{ width: `13ch`, "font-size": "1.1rem" }}
+                placeholder="電子郵件"
+                onChange={(e) => updateNewMember("email", e.target.value)}
+              />
+            </InputGroup>
+          </td>
+          <td>
             <button
               class="btn btn-success mx-2"
-              onClick={(e) => {
+              onClick={async (e) => {
+                const newMember = await memberStoreApi.addOne(cloneTheMember());
+                if (newMember.hasOwnProperty("err")) {
+                  return;
+                }
                 batch(() => {
                   const newMembers = [...memberStore.members];
                   theMember().id = newMembers[newMembers.length - 1].id + 1;
@@ -72,6 +88,18 @@ export default function MemberEnqueue(props) {
                   });
                 });
               }}
+              // onClick={async (e) => {
+              //   batch(() => {
+              //     const newMembers = [...memberStore.members];
+              //     theMember().id = newMembers[newMembers.length - 1].id + 1;
+              //     newMembers.push(cloneTheMember());
+              //     setMemberStore({ members: newMembers });
+              //     socket.emit("create-member", {
+              //       from: "MemberEnqueue-create-member-check",
+              //       data: cloneTheMember(),
+              //     });
+              //   });
+              // }}
             >
               <value>掛號</value>
             </button>

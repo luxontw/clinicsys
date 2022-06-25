@@ -1,6 +1,6 @@
 import { createSignal, Switch, Match, batch } from "solid-js";
 import { InputGroup, FormControl } from "solid-bootstrap";
-import { memberStore, setMemberStore } from "../stores/memberStore";
+import { memberStore, setMemberStore, memberStoreApi } from "../stores/memberStore";
 import {
   editOneMemberStore,
   setEditOneMemberStore,
@@ -23,8 +23,7 @@ export default function MemberTableRow(props) {
 
   function isUpdateMode() {
     return (
-      (editOneMemberStore.mode === "input" ||
-        editOneMemberStore.mode === "add") &&
+      editOneMemberStore.mode === "input" &&
       editOneMemberStore.index === props.index()
     );
   }
@@ -40,7 +39,8 @@ export default function MemberTableRow(props) {
           <td>
             <button
               className="btn btn-danger mx-2"
-              onClick={(e) => {
+              onClick={async (e) => {
+                await memberStoreApi.deleteOne(item.id);
                 const newMembers = [...memberStore.members];
                 newMembers.splice(props.index(), 1);
 
@@ -114,10 +114,14 @@ export default function MemberTableRow(props) {
           <td>
             <button
               class="btn btn-success mx-2"
-              onClick={(e) => {
+              onClick={async (e) => {
+                
+                const newMember = await memberStoreApi.updateOne(cloneTheMember());
+                setEditOneMemberStore("mode", "text");
+                if (newMember.hasOwnProperty("err")) {
+                  return;
+                }
                 batch(() => {
-                  setEditOneMemberStore("mode", "text");
-
                   setMemberStore(
                     "members",
                     editOneMemberStore.index,

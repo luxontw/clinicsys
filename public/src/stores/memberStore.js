@@ -1,15 +1,5 @@
 import { createStore } from "solid-js/store";
 
-// let members = [
-//   { id: 1, name: "林丞祥", nhi_card_no: "000045458181", phone: "0912612010" },
-//   { id: 2, name: "杜彥君", nhi_card_no: "000014178651", phone: "0972414871" },
-//   { id: 3, name: "賴怡璇", nhi_card_no: "000031241120", phone: "0911215103" },
-//   { id: 4, name: "蔡文筠", nhi_card_no: "000051243364", phone: "0932641571" },
-//   { id: 5, name: "陳韻如", nhi_card_no: "000071471220", phone: "0933414521" },
-//   { id: 6, name: "張鈞安", nhi_card_no: "000084715654", phone: "0966414521" },
-// ];
-// export const [memberStore, setMemberStore] = createStore({ members: members });
-
 let members = [];
 
 const apiURL = "http://localhost:8888/api/members";
@@ -20,9 +10,58 @@ const memberStoreApi = {
     setMemberStore({ members: newMembers });
     console.log(newMembers);
     return newMembers;
-  }
-}
+  },
+  addOne: async (theMember) => {
+    const response = await fetch(apiURL + "/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(theMember),
+    });
+    const result = await response.json();
+    if (response.status === 200) {
+      console.log(`新增成功，新增1成員，id:${result.id}!`);
+    } else {
+      console.log(`新增失敗:${result.err}！`);
+    }
+    return result;
+  },
+  updateOne: async (theMember) => {
+    const response = await fetch(apiURL, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(theMember),
+    });
+    const result = await response.json();
+    console.log(result);
+    if (response.status === 200) {
+      console.log(`更新成功!`);
+    } else {
+      console.log(`更新失敗！`);
+    }
+    return result;
+  },
+  deleteOne: async (id) => {
+    const response = await fetch(apiURL + "/", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({ id: id }),
+    });
+    const result = await response.json();
 
+    if (response.status === 200) {
+      console.log(`刪除成功,成員id：${id}!`);
+    } else {
+      console.log(`刪除失敗,成員id：${id}!`);
+    }
+    return id;
+  },
+};
 const [memberStore, setMemberStore] = createStore({ members: members });
 
 export { memberStore, setMemberStore, memberStoreApi };

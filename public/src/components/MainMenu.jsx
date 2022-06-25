@@ -7,7 +7,7 @@ export default function MainMenu() {
       <Container>
         <Navbar.Brand href="/">
           <img alt="" src={logo} width="30" height="30" />
-          <span class="mx-2">門診掛號系統</span>
+          <span class="mx-2">門診系統</span>
         </Navbar.Brand>
         <Nav className="me-auto">
           <Nav.Link href="/">等待大廳</Nav.Link>
