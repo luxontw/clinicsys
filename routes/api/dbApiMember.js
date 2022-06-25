@@ -9,10 +9,11 @@ const tblMember = {
       const sql = `
             CREATE TABLE IF NOT EXISTS ${tblName} 
             (
-            id INT AUTO_INCREMENT PRIMARY KEY COMMENT '代號',
+            id INT AUTO_INCREMENT PRIMARY KEY COMMENT '候診號碼',
             name VARCHAR(30) NOT NULL COMMENT '姓名',
-            email VARCHAR(50) NOT NULL COMMENT 'email',
-            status varchar(10) COMMENT '狀態'
+            nhi_card_no VARCHAR(30) NOT NULL COMMENT '健保卡號',
+            phone VARCHAR(30) NOT NULL COMMENT '手機號碼',
+            email VARCHAR(50) NOT NULL COMMENT 'email'
             ) CHARACTER SET utf8 COLLATE utf8_general_ci;
         `;
 
@@ -71,6 +72,23 @@ const tblMember = {
     } catch (err) {
       console.log(err);
       return null;
+    }
+  },
+  insertMany: async (oData) => {
+    try {
+      const dataSet = oData.map((obj) =>
+        Object.entries(obj).map((el) => el[1])
+      );
+      console.log("dataSet", dataSet);
+
+      const sql = `INSERT INTO ${tblName} (id, name, nhi_card_no, phone, email) VALUES ? ;`;
+      const [rs, flds] = await myConn.query(sql, [dataSet]);
+      console.log(rs, flds);
+      console.log(rs.affectedRows + " Rows inserted");
+      return rs.affectedRows;
+    } catch (err) {
+      console.log(err);
+      return -1;
     }
   },
 };
