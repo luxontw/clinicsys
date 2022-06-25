@@ -6,8 +6,8 @@
   "author": "luxontw <mailbox@newxe.tw>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "nodemon index.js"
+    "dev": "node index.js",
+    "start": "node index.js"
   },
   "dependencies": {
     "cros": "^1.0.1",
