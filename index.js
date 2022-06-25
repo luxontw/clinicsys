@@ -1,12 +1,28 @@
 const express = require("express");
 const { Socket } = require("socket.io");
+const cors = require("cors");
+const members = require("./routes/api/members");
+// const membersDB = require("./routes/api/membersDB");
 
 const app = express();
 
+app.use(
+  cors({
+    origin: "*",
+  })
+);
+
 const path = require("path");
 const docRoot = path.join(__dirname, "public/dist");
+
 console.log(docRoot);
 app.use(express.static(docRoot));
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use("/api/members", members);
+// app.use("/api/members", membersDB);
+
 app.get("/*", function (req, res) {
   res.sendFile(path.join(docRoot, "index.html"), function (err) {
     if (err) {

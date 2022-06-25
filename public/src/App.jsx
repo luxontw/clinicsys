@@ -7,7 +7,11 @@ import Appointment from "./pages/Appointment";
 import Oncall from "./pages/Oncall";
 import { socket } from "./network/websocket";
 import { onMount } from "solid-js";
-import { memberStore, setMemberStore } from "./stores/memberStore";
+import {
+  memberStore,
+  setMemberStore,
+  memberStoreApi,
+} from "./stores/memberStore";
 import {
   editOneMemberStore,
   setEditOneMemberStore,
@@ -42,6 +46,7 @@ export default function App() {
       setMemberStore({ members: newMembers });
     });
   });
+  memberStoreApi.getAll();
   return (
     <div class={styles.App}>
       <MainMenu />
