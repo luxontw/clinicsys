@@ -1,8 +1,7 @@
 const express = require("express");
 const { Socket } = require("socket.io");
 const cors = require("cors");
-const members = require("./routes/api/members");
-const membersDB = require("./routes/api/membersDB");
+const members = require("./routes/api/membersDB");
 
 const app = express();
 
@@ -20,8 +19,7 @@ app.use(express.static(docRoot));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use("/api/members", members);
-app.use("/api/members", membersDB);
+app.use("/api/members", members);
 
 app.get("/*", function (req, res) {
   res.sendFile(path.join(docRoot, "index.html"), function (err) {
@@ -61,7 +59,8 @@ io.on("connection", (socket) => {
   });
 });
 
-const PORT = process.env.PORT || 8888;
+const newLocal = 8888;
+const PORT = process.env.PORT || newLocal;
 server.listen(PORT, () => {
-  console.log(`Web server running on port ${PORT}`);
+  console.log(`Web server running at http://localhost:${PORT}`);
 });

@@ -13,7 +13,8 @@ const tblMember = {
             name VARCHAR(30) NOT NULL COMMENT '姓名',
             nhi_card_no VARCHAR(30) NOT NULL COMMENT '健保卡號',
             phone VARCHAR(30) NOT NULL COMMENT '手機號碼',
-            email VARCHAR(50) NOT NULL COMMENT 'email'
+            email VARCHAR(50) NOT NULL COMMENT 'email',
+            status VARCHAR(1) NOT NULL COMMENT '身份別'
             ) CHARACTER SET utf8 COLLATE utf8_general_ci;
         `;
 
@@ -81,7 +82,7 @@ const tblMember = {
       );
       console.log("dataSet", dataSet);
 
-      const sql = `INSERT INTO ${tblName} (id, name, nhi_card_no, phone, email) VALUES ? ;`;
+      const sql = `INSERT INTO ${tblName} (id, name, nhi_card_no, phone, email, status) VALUES ? ;`;
       const [rs, flds] = await myConn.query(sql, [dataSet]);
       console.log(rs, flds);
       console.log(rs.affectedRows + " Rows inserted");
@@ -91,6 +92,44 @@ const tblMember = {
       return -1;
     }
   },
+  updateOne: async (oData) => {
+    try {
+      console.log("data updating ... ", oData);
+
+      const sql = `UPDATE ${tblName} SET name=?, nhi_card_no=?, phone=?, email=?, status=? WHERE id=?;`;
+      const [rs, flds] = await myConn.query(sql, [
+        oData.name,
+        oData.nhi_card_no,
+        oData.phone,
+        oData.email,
+        oData.status,
+        oData.id,
+      ]);
+      console.log(rs, flds);
+      console.log(rs.affectedRows + " Rows updated");
+      return rs.affectedRows;
+    } catch (err) {
+      console.log(err);
+      return -1;
+    }
+  },
+  deleteOne: async (oData) => {
+    try {
+      console.log("data deleting ... ", oData);
+
+      const sql = `DELETE FROM ${tblName} WHERE id=?;`;
+      const [rs, flds] = await myConn.query(sql, [oData.id]);
+      console.log(rs, flds);
+      console.log(rs.affectedRows + " Rows deleted");
+      if (rs.affectedRows == -1) {
+        return -1;
+      }
+      return rs.affectedRows;
+    } catch (err) {
+      console.log(err);
+      return -1;
+    }
+  }
 };
 
 module.exports = tblName;
