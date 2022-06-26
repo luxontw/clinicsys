@@ -1,12 +1,11 @@
-import ShowMemberTable from "../components/ShowMemberTable";
-import MemberEnqueue from "../components/MemberEnqueue";
-import MemberDequeue from "../components/MemberDequeue";
+import ShowWaitinglist from "../components/ShowWaitinglist";
+import WaitinglistEnqueue from "../components/WaitinglistEnqueue";
 
 export default function Appointment() {
   return (
     <div>
-      <MemberEnqueue />
-      <ShowMemberTable />
+      <WaitinglistEnqueue />
+      <ShowWaitinglist />
     </div>
   );
 }

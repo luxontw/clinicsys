@@ -1,9 +1,9 @@
-import MemberCount from "../components/MemberCount";
+import WaitinglistCount from "../components/WaitinglistCount";
 
 export default function Home() {
   return (
     <div>
-      <MemberCount />
+      <WaitinglistCount />
     </div>
   );
 }

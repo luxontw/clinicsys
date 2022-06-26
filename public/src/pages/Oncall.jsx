@@ -1,10 +1,10 @@
-import ShowMemberTable from "../components/ShowMemberTable";
-import MemberDequeue from "../components/MemberDequeue";
+import ShowWaitinglist from "../components/ShowWaitinglist";
+import WaitinglistDequeue from "../components/WaitinglistDequeue";
 export default function Oncall() {
   return (
     <div>
-      <MemberDequeue />
-      <ShowMemberTable />
+      <WaitinglistDequeue />
+      <ShowWaitinglist />
     </div>
   );
 }

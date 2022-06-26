@@ -13,9 +13,18 @@ import {
   memberStoreApi,
 } from "./stores/memberStore";
 import {
+  waitinglistStore,
+  setWaitinglistStore,
+  waitinglistStoreApi,
+} from "./stores/waitinglistStore";
+import {
   editOneMemberStore,
   setEditOneMemberStore,
 } from "./stores/editOneMemberStore";
+import {
+  editOneWaitinglistStore,
+  setEditOneWaitinglistStore,
+} from "./stores/editOneWaitinglistStore";
 import {
   oncallMemberStore,
   setOncallMemberStore,
@@ -47,6 +56,7 @@ export default function App() {
     });
   });
   memberStoreApi.getAll();
+  waitinglistStoreApi.getAll();
   return (
     <div class={styles.App}>
       <MainMenu />
