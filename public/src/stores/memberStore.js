@@ -2,7 +2,7 @@ import { createStore } from "solid-js/store";
 
 let members = [];
 
-const apiURL = "http://localhost:8888/api/members";
+const apiURL = "https://clinicsys.azurewebsites.net/api/members/";
 const memberStoreApi = {
   getAll: async () => {
     const res = await fetch(apiURL + "/");

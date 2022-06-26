@@ -2,7 +2,7 @@ import { createStore } from "solid-js/store";
 
 let waitinglist = [];
 
-const apiURL = "http://localhost:8888/api/waitinglist";
+const apiURL = "https://clinicsys.azurewebsites.net/api/waitinglist";
 const waitinglistStoreApi = {
   getAll: async () => {
     const res = await fetch(apiURL + "/");
