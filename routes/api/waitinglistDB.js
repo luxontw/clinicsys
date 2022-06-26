@@ -121,20 +121,28 @@ router.get("/status/:flag", (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  if (!req.body.id) {
-    res.status(400).json({ err: "請輸入會員id" });
+  if (!req.body.nhi_card_no) {
+    res.status(400).json({ err: "請輸入健保卡號" });
     return;
   }
 
-  if (data.findIndex((val, idx) => val.member_id === (req.body.id * 1)) >= 0) {
+  if (data.findIndex((val, idx) => val.nhi_card_no === (req.body.nhi_card_no)) >= 0) {
     res.status(400).json({ err: "候診清單已有相同會員!" });
     return;
   }
 
+  const member = await tblMember.getByNhiCard(req.body.nhi_card_no);
+  console.log(member);
+  if (member === null) {
+    res.status(400).json({ err: `查無資料` });
+    return;
+  }
+  console.log(member);
+
   const maxId = Math.max(...data.map((el) => el.id));
   const newWaitingMember = {
     id: maxId + 1,
-    member_id: req.body.id * 1,
+    member_id: member[0].id,
   };
 
   const count = await tblWaitinglist.insertMany([newWaitingMember]);
@@ -145,27 +153,13 @@ router.post("/", async (req, res) => {
 
   const fullInfoWaitingMember = {
     id: maxId + 1,
-    member_id: req.body.id * 1,
-    name: "",
-    nhi_card_no: "",
-    phone: "",
-    email: "",
-    status: "",
+    member_id: member[0].id,
+    name: member[0].name,
+    nhi_card_no: member[0].nhi_card_no,
+    phone: member[0].phone,
+    email: member[0].email,
+    status: member[0].status,
   };
-
-  const memberDetail = await tblMember.getOne(req.body.id);
-  console.log(memberDetail);
-  if (memberDetail === null) {
-    res.status(400).json({ err: `查無資料` });
-    return;
-  }
-  console.log(memberDetail);
-
-  fullInfoWaitingMember.name = memberDetail[0].name;
-  fullInfoWaitingMember.nhi_card_no = memberDetail[0].nhi_card_no;
-  fullInfoWaitingMember.phone = memberDetail[0].phone;
-  fullInfoWaitingMember.email = memberDetail[0].email;
-  fullInfoWaitingMember.status = memberDetail[0].status;
 
   data.push(fullInfoWaitingMember);
   console.log(data);

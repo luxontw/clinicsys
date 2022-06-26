@@ -54,6 +54,13 @@ export default function App() {
       newMembers.splice(data.index, 1);
       setMemberStore({ members: newMembers });
     });
+    socket.on("create-waiting-member", (data) => {
+      console.log(`${socket.id} create a waiting member:`, data);
+      const newWaitinglist = [...waitinglistStore.waitinglist];
+      newWaitinglist.push(data.data);
+      setEditOneWaitinglistStore("mode", "text");
+      setWaitinglistStore({ waitinglist: newWaitinglist });
+    });
     socket.on("update-waitinglist", (data) => {
       console.log(`${socket.id} update waiting list:`, data);
       setEditOneWaitinglistStore("mode", "text");

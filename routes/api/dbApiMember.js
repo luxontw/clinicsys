@@ -85,6 +85,17 @@ const tblMember = {
       return null;
     }
   },
+  getByNhiCard: async (nhi_card_no) => {
+    try {
+      const sql = `SELECT * FROM ${tblName} WHERE nhi_card_no=?;`;
+      const [rs, flds] = await myConn.query(sql, [nhi_card_no]);
+      console.log("getByNhiCard:", rs);
+      return rs;
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
+  },
   insertMany: async (oData) => {
     try {
       const dataSet = oData.map((obj) =>

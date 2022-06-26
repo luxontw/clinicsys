@@ -1,26 +1,31 @@
 import { createSignal, batch } from "solid-js";
 import { Table } from "solid-bootstrap";
 import { InputGroup, FormControl } from "solid-bootstrap";
-import { memberStore, setMemberStore, memberStoreApi } from "../stores/memberStore";
+import {
+  waitinglistStore,
+  setWaitinglistStore,
+  waitinglistStoreApi,
+} from "../stores/waitinglistStore";
 import { socket } from "../network/websocket";
 
 export default function WaitinglistEnqueue(props) {
-  const newMember = {
+  const newWaitinglist = {
     id: "",
+    member_id: "",
     name: "",
     nhi_card_no: "",
     phone: "",
     email: "",
-    status: "0",
+    status: "",
   };
-  const [theMember, setTheMember] = createSignal(newMember);
-  function cloneTheMember() {
-    return JSON.parse(JSON.stringify(theMember()));
+  const [theWaitinglist, setTheWaitinglist] = createSignal(newWaitinglist);
+  function cloneWaitinglist() {
+    return JSON.parse(JSON.stringify(theWaitinglist()));
   }
-  function updateNewMember(key, value) {
-    const copyMember = cloneTheMember();
-    copyMember[key] = value;
-    setTheMember(copyMember);
+  function updateWaitinglist(key, value) {
+    const copyWaitinglist = cloneWaitinglist();
+    copyWaitinglist[key] = value;
+    setTheWaitinglist(copyWaitinglist);
   }
   return (
     <Table striped bordered hover variant="dark">
@@ -34,38 +39,8 @@ export default function WaitinglistEnqueue(props) {
               <FormControl
                 type="text"
                 style={{ width: `13ch`, "font-size": "1.1rem" }}
-                placeholder="姓名"
-                onChange={(e) => updateNewMember("name", e.target.value)}
-              />
-            </InputGroup>
-          </td>
-          <td>
-            <InputGroup>
-              <FormControl
-                type="text"
-                style={{ width: `13ch`, "font-size": "1.1rem" }}
                 placeholder="健保卡號"
-                onChange={(e) => updateNewMember("nhi_card_no", e.target.value)}
-              />
-            </InputGroup>
-          </td>
-          <td>
-            <InputGroup>
-              <FormControl
-                type="text"
-                style={{ width: `13ch`, "font-size": "1.1rem" }}
-                placeholder="手機號碼"
-                onChange={(e) => updateNewMember("phone", e.target.value)}
-              />
-            </InputGroup>
-          </td>
-          <td>
-            <InputGroup>
-              <FormControl
-                type="text"
-                style={{ width: `13ch`, "font-size": "1.1rem" }}
-                placeholder="電子郵件"
-                onChange={(e) => updateNewMember("email", e.target.value)}
+                onChange={(e) => updateWaitinglist("nhi_card_no", e.target.value)}
               />
             </InputGroup>
           </td>
@@ -73,18 +48,24 @@ export default function WaitinglistEnqueue(props) {
             <button
               class="btn btn-success mx-2"
               onClick={async (e) => {
-                const newMember = await memberStoreApi.addOne(cloneTheMember());
-                if (newMember.hasOwnProperty("err")) {
+                const waitinglist = await waitinglistStoreApi.addOne(cloneWaitinglist());
+                
+                if (waitinglist.hasOwnProperty("err")) {
                   return;
                 }
                 batch(() => {
-                  const newMembers = [...memberStore.members];
-                  theMember().id = newMembers[newMembers.length - 1].id + 1;
-                  newMembers.push(cloneTheMember());
-                  setMemberStore({ members: newMembers });
-                  socket.emit("create-member", {
-                    from: "MemberEnqueue-create-member-check",
-                    data: cloneTheMember(),
+                  const newWaitinglist = [...waitinglistStore.waitinglist];
+                  theWaitinglist().id = waitinglist.id;
+                  theWaitinglist().member_id = waitinglist.member_id;
+                  theWaitinglist().name = waitinglist.name;
+                  theWaitinglist().phone = waitinglist.phone;
+                  theWaitinglist().email = waitinglist.email;
+                  theWaitinglist().status = waitinglist.status;
+                  newWaitinglist.push(cloneWaitinglist());
+                  setWaitinglistStore({ waitinglist: newWaitinglist });
+                  socket.emit("create-waiting-member", {
+                    from: "WaitinglistEnqueue-create-waiting-member-check",
+                    data: cloneWaitinglist(),
                   });
                 });
               }}

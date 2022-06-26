@@ -55,6 +55,10 @@ io.on("connection", (socket) => {
     console.log(`${socket.id} delete`, data);
     socket.broadcast.emit("delete-member", data);
   });
+  socket.on("create-waiting-member", (data) => {
+    console.log(`${socket.id} update`, data);
+    socket.broadcast.emit("create-waiting-member", data);
+  });
   socket.on("update-waitinglist", (data) => {
     console.log(`${socket.id} update`, data);
     socket.broadcast.emit("update-waitinglist", data);
