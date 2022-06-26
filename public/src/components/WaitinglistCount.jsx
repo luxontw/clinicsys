@@ -1,10 +1,10 @@
 import { Show } from "solid-js";
 import { Table } from "solid-bootstrap";
-import { memberStore, setMemberStore } from "../stores/memberStore";
 import {
-  oncallMemberStore,
-  setOncallMemberStore,
-} from "../stores/oncallMemberStore";
+  waitinglistStore,
+  setWaitinglistStore,
+  waitinglistStoreApi,
+} from "../stores/waitinglistStore";
 
 export default function WaitinglistCount() {
   return (
@@ -18,14 +18,14 @@ export default function WaitinglistCount() {
       <tbody>
         <tr>
           <td>
-            {memberStore.members.length}
+            {waitinglistStore.waitinglist.length - 1}
           </td>
           <td>
           <Show
-            when={oncallMemberStore.oncallMember.id !== ""}
+            when={waitinglistStore.waitinglist[0]}
             fallback={<>尚未開始看診</>}
           >
-            {oncallMemberStore.oncallMember.id}
+            {waitinglistStore.waitinglist[0].id}
           </Show>
           </td>
         </tr>

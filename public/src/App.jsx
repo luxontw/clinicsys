@@ -66,8 +66,8 @@ export default function App() {
       setEditOneWaitinglistStore("mode", "text");
       setWaitinglistStore("waitinglist", data.index, data.data);
     });
-    socket.on("delete-waitinglist", (data) => {
-      console.log(`${socket.id} delete waiting list:`, data);
+    socket.on("delete-waiting-member", (data) => {
+      console.log(`${socket.id} delete waiting member:`, data);
       const newWaitinglist = [...waitinglistStore.waitinglist];
       newWaitinglist.splice(data.index, 1);
       setWaitinglistStore({ waitinglist: newWaitinglist });

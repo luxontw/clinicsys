@@ -33,8 +33,8 @@ export default function WaitinglistRow(props) {
 
   return (
     <tr>
-      <Switch fallback={<div>editOneWaitinglistStore.mode</div>}>
-        <Match when={!isUpdateMode()}>
+      <Switch>
+        <Match when={!isUpdateMode() && (item.id != waitinglistStore.waitinglist[0].id)}>
           <td>{item.id}</td>
           <td>{item.member_id}</td>
           <td>{item.name}</td>
@@ -51,7 +51,7 @@ export default function WaitinglistRow(props) {
                 newWaitinglist.splice(props.index(), 1);
 
                 setWaitinglistStore({ waitinglist: newWaitinglist });
-                socket.emit("delete-waitinglist", {
+                socket.emit("delete-waiting-member", {
                   from: "Waitinglist-delete-check",
                   index: props.index(),
                 });
@@ -72,7 +72,7 @@ export default function WaitinglistRow(props) {
             </button>
           </td>
         </Match>
-        <Match when={isUpdateMode()}>
+        <Match when={isUpdateMode() && (item.id != waitinglistStore.waitinglist[0].id)}>
           <td>{item.id}</td>
           <td>
             <InputGroup>
