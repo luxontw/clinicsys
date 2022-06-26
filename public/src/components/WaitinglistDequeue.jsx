@@ -17,12 +17,10 @@ export default function WaitinglistDequeue(props) {
             when={waitinglistStore.waitinglist[0]}
             fallback={<td>尚未開始看診</td>}
           >
-            <td>{waitinglistStore.waitinglist[0].member_id}</td>
             <td>{waitinglistStore.waitinglist[0].name}</td>
             <td>{waitinglistStore.waitinglist[0].nhi_card_no}</td>
             <td>{waitinglistStore.waitinglist[0].phone}</td>
             <td>{waitinglistStore.waitinglist[0].email}</td>
-            <td>{waitinglistStore.waitinglist[0].status}</td>
           </Show>
           <td>
             <button

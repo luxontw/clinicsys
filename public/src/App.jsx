@@ -25,10 +25,6 @@ import {
   editOneWaitinglistStore,
   setEditOneWaitinglistStore,
 } from "./stores/editOneWaitinglistStore";
-import {
-  oncallMemberStore,
-  setOncallMemberStore,
-} from "./stores/oncallMemberStore";
 
 export default function App() {
   onMount(() => {

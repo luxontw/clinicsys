@@ -18,7 +18,7 @@ export default function WaitinglistCount() {
       <tbody>
         <tr>
           <td>
-            {waitinglistStore.waitinglist.length - 1}
+            {(waitinglistStore.waitinglist.length > 0 && waitinglistStore.waitinglist.length - 1) | 0}
           </td>
           <td>
           <Show

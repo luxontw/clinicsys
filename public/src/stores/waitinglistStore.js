@@ -23,7 +23,7 @@ const waitinglistStoreApi = {
     if (response.status === 200) {
       console.log(`新增成功，新增1成員，id:${result.id}!`);
     } else {
-      console.log(`新增失敗:${result.err}！`);
+      alert(`新增失敗:${result.err}`);
     }
     return result;
   },

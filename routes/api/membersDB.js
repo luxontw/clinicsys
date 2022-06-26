@@ -11,7 +11,9 @@ const raw_data = [
     nhi_card_no: "000045458181",
     phone: "0912612010",
     email: "lin@newxe.tw",
-    status: "0",
+    username: "linchen",
+    password: "$2b$10$Km/z54B8hEgDVy0uy3j6qucBLYFa3PFNHo6l/U1rub4RPyD89qaMi",
+    status: "一般病患",
   },
   {
     id: 2,
@@ -19,7 +21,9 @@ const raw_data = [
     nhi_card_no: "000014178651",
     phone: "0972414871",
     email: "tu@newxe.tw",
-    status: "1",
+    username: "tutuman",
+    password: "$2b$10$.DSsxhvpOi8nPwajJFCKTuT663yAtwMVLagYdTLWmAP.LGxPOEB2C",
+    status: "櫃檯人員",
   },
   {
     id: 3,
@@ -27,7 +31,9 @@ const raw_data = [
     nhi_card_no: "000031241120",
     phone: "0911215103",
     email: "lai@newxe.tw",
-    status: "2",
+    username: "laiora",
+    password: "$2b$10$.DSsxhvpOi8nPwajJFCKTuT663yAtwMVLagYdTLWmAP.LGxPOEB2C",
+    status: "醫生",
   },
   {
     id: 4,
@@ -35,7 +41,9 @@ const raw_data = [
     nhi_card_no: "000051243364",
     phone: "0932641571",
     email: "tsai@newxe.tw",
-    status: "0",
+    username: "",
+    password: "",
+    status: "一般病患",
   },
   {
     id: 5,
@@ -43,7 +51,9 @@ const raw_data = [
     nhi_card_no: "000071471220",
     phone: "0933414521",
     email: "chen@newxe.tw",
-    status: "1",
+    username: "",
+    password: "",
+    status: "櫃檯人員",
   },
   {
     id: 6,
@@ -51,7 +61,9 @@ const raw_data = [
     nhi_card_no: "000084715654",
     phone: "0966414521",
     email: "chang@newxe.tw",
-    status: "1",
+    username: "",
+    password: "",
+    status: "櫃檯人員",
   },
 ];
 
@@ -62,7 +74,9 @@ let data = [
     nhi_card_no: "000045458181",
     phone: "0912612010",
     email: "lin@newxe.tw",
-    status: "0",
+    username: "linchen",
+    password: "$2b$10$Km/z54B8hEgDVy0uy3j6qucBLYFa3PFNHo6l/U1rub4RPyD89qaMi",
+    status: "一般病患",
   },
   {
     id: 2,
@@ -70,7 +84,9 @@ let data = [
     nhi_card_no: "000014178651",
     phone: "0972414871",
     email: "tu@newxe.tw",
-    status: "1",
+    username: "tutuman",
+    password: "$2b$10$.DSsxhvpOi8nPwajJFCKTuT663yAtwMVLagYdTLWmAP.LGxPOEB2C",
+    status: "櫃檯人員",
   },
   {
     id: 3,
@@ -78,7 +94,9 @@ let data = [
     nhi_card_no: "000031241120",
     phone: "0911215103",
     email: "lai@newxe.tw",
-    status: "2",
+    username: "laiora",
+    password: "$2b$10$.DSsxhvpOi8nPwajJFCKTuT663yAtwMVLagYdTLWmAP.LGxPOEB2C",
+    status: "醫生",
   },
   {
     id: 4,
@@ -86,7 +104,9 @@ let data = [
     nhi_card_no: "000051243364",
     phone: "0932641571",
     email: "tsai@newxe.tw",
-    status: "0",
+    username: "",
+    password: "",
+    status: "一般病患",
   },
   {
     id: 5,
@@ -94,7 +114,9 @@ let data = [
     nhi_card_no: "000071471220",
     phone: "0933414521",
     email: "chen@newxe.tw",
-    status: "1",
+    username: "",
+    password: "",
+    status: "櫃檯人員",
   },
   {
     id: 6,
@@ -102,7 +124,9 @@ let data = [
     nhi_card_no: "000084715654",
     phone: "0966414521",
     email: "chang@newxe.tw",
-    status: "1",
+    username: "",
+    password: "",
+    status: "櫃檯人員",
   },
 ];
 
