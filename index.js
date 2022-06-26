@@ -55,6 +55,14 @@ io.on("connection", (socket) => {
     console.log(`${socket.id} delete`, data);
     socket.broadcast.emit("delete-member", data);
   });
+  socket.on("update-waitinglist", (data) => {
+    console.log(`${socket.id} update`, data);
+    socket.broadcast.emit("update-waitinglist", data);
+  });
+  socket.on("delete-waitinglist", (data) => {
+    console.log(`${socket.id} delete`, data);
+    socket.broadcast.emit("delete-waitinglist", data);
+  });
   socket.on("disconnect", () => {
     console.log(`A user ${socket.id} disconnected`);
     socket.broadcast.emit("user-disconnected", socket.id);

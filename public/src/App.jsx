@@ -54,6 +54,17 @@ export default function App() {
       newMembers.splice(data.index, 1);
       setMemberStore({ members: newMembers });
     });
+    socket.on("update-waitinglist", (data) => {
+      console.log(`${socket.id} update waiting list:`, data);
+      setEditOneWaitinglistStore("mode", "text");
+      setWaitinglistStore("waitinglist", data.index, data.data);
+    });
+    socket.on("delete-waitinglist", (data) => {
+      console.log(`${socket.id} delete waiting list:`, data);
+      const newWaitinglist = [...waitinglistStore.waitinglist];
+      newWaitinglist.splice(data.index, 1);
+      setWaitinglistStore({ waitinglist: newWaitinglist });
+    });
   });
   memberStoreApi.getAll();
   waitinglistStoreApi.getAll();

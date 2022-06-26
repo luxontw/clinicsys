@@ -51,10 +51,10 @@ export default function WaitinglistRow(props) {
                 newWaitinglist.splice(props.index(), 1);
 
                 setWaitinglistStore({ waitinglist: newWaitinglist });
-                // socket.emit("delete-member", {
-                //   from: "TableMemberRow-delete-member-check",
-                //   index: props.index(),
-                // });
+                socket.emit("delete-waitinglist", {
+                  from: "Waitinglist-delete-check",
+                  index: props.index(),
+                });
               }}
             >
               <i class="bi bi-trash"></i>
@@ -108,11 +108,11 @@ export default function WaitinglistRow(props) {
                     newWaitinglist
                   );
 
-                  // socket.emit("update-member", {
-                  //   from: "TableMemberRow-update-member-check",
-                  //   index: editOneMemberStore.index,
-                  //   data: cloneTheMember(),
-                  // });
+                  socket.emit("update-waitinglist", {
+                    from: "Waitinglist-update-check",
+                    index: editOneWaitinglistStore.index,
+                    data: newWaitinglist,
+                  });
                 });
               }}
             >
