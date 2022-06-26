@@ -1,20 +1,17 @@
 const myConn = require("../../database/mysqlConn");
 
-const tblName = "members";
+const tblName = "waitinglist";
 
-const tblMember = {
+const tblWaitinglist = {
   tblName: tblName,
   create: async () => {
     try {
       const sql = `
             CREATE TABLE IF NOT EXISTS ${tblName} 
             (
-            id INT AUTO_INCREMENT PRIMARY KEY COMMENT '會員編號',
-            name VARCHAR(30) NOT NULL COMMENT '姓名',
-            nhi_card_no VARCHAR(30) NOT NULL COMMENT '健保卡號',
-            phone VARCHAR(30) NOT NULL COMMENT '手機號碼',
-            email VARCHAR(50) NOT NULL COMMENT 'email',
-            status VARCHAR(1) NOT NULL COMMENT '身份別'
+            id INT AUTO_INCREMENT PRIMARY KEY COMMENT '候診號碼',
+            member_id INT NOT NULL COMMENT '會員編號',
+            FOREIGN KEY (member_id) REFERENCES members(id)
             ) CHARACTER SET utf8 COLLATE utf8_general_ci;
         `;
 
@@ -63,9 +60,14 @@ const tblMember = {
       return null;
     }
   },
+
   getAll: async () => {
     try {
-      const sql = `SELECT * FROM ${tblName};`;
+      const sql = `
+            SELECT waitinglist.id as id, members.id as member_id, name, nhi_card_no, phone, email, status
+            FROM waitinglist, members
+            WHERE waitinglist.member_id = members.id ORDER BY waitinglist.id;
+        `;
       const [rs, flds] = await myConn.query(sql);
       console.log("getAll:", rs);
       return rs;
@@ -74,17 +76,7 @@ const tblMember = {
       return null;
     }
   },
-  getOne: async (id) => {
-    try {
-      const sql = `SELECT * FROM ${tblName} WHERE id=?;`;
-      const [rs, flds] = await myConn.query(sql, [id]);
-      console.log("getOne:", rs);
-      return rs;
-    } catch (err) {
-      console.log(err);
-      return null;
-    }
-  },
+
   insertMany: async (oData) => {
     try {
       const dataSet = oData.map((obj) =>
@@ -92,7 +84,7 @@ const tblMember = {
       );
       console.log("dataSet", dataSet);
 
-      const sql = `INSERT INTO ${tblName} (id, name, nhi_card_no, phone, email, status) VALUES ? ;`;
+      const sql = `INSERT INTO ${tblName} (id, member_id) VALUES ? ;`;
       const [rs, flds] = await myConn.query(sql, [dataSet]);
       console.log(rs, flds);
       console.log(rs.affectedRows + " Rows inserted");
@@ -102,19 +94,13 @@ const tblMember = {
       return -1;
     }
   },
+
   updateOne: async (oData) => {
     try {
       console.log("data updating ... ", oData);
 
-      const sql = `UPDATE ${tblName} SET name=?, nhi_card_no=?, phone=?, email=?, status=? WHERE id=?;`;
-      const [rs, flds] = await myConn.query(sql, [
-        oData.name,
-        oData.nhi_card_no,
-        oData.phone,
-        oData.email,
-        oData.status,
-        oData.id,
-      ]);
+      const sql = `UPDATE ${tblName} SET member_id=? WHERE id=?;`;
+      const [rs, flds] = await myConn.query(sql, [oData.member_id, oData.id]);
       console.log(rs, flds);
       console.log(rs.affectedRows + " Rows updated");
       return rs.affectedRows;
@@ -123,6 +109,7 @@ const tblMember = {
       return -1;
     }
   },
+
   deleteOne: async (oData) => {
     try {
       console.log("data deleting ... ", oData);
@@ -139,8 +126,8 @@ const tblMember = {
       console.log(err);
       return -1;
     }
-  }
+  },
 };
 
 module.exports = tblName;
-module.exports = tblMember;
+module.exports = tblWaitinglist;

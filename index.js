@@ -2,6 +2,7 @@ const express = require("express");
 const { Socket } = require("socket.io");
 const cors = require("cors");
 const members = require("./routes/api/membersDB");
+const waitinglist = require("./routes/api/waitinglistDB");
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(express.static(docRoot));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/members", members);
+app.use("/api/waitinglist", waitinglist);
 
 app.get("/*", function (req, res) {
   res.sendFile(path.join(docRoot, "index.html"), function (err) {

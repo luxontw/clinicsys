@@ -4,6 +4,57 @@ const router = express.Router();
 const tblMember = require("./dbApiMember");
 const tblName = tblMember.tblName;
 
+const raw_data = [
+  {
+    id: 1,
+    name: "林丞祥",
+    nhi_card_no: "000045458181",
+    phone: "0912612010",
+    email: "lin@newxe.tw",
+    status: "0",
+  },
+  {
+    id: 2,
+    name: "杜彥君",
+    nhi_card_no: "000014178651",
+    phone: "0972414871",
+    email: "tu@newxe.tw",
+    status: "1",
+  },
+  {
+    id: 3,
+    name: "賴怡璇",
+    nhi_card_no: "000031241120",
+    phone: "0911215103",
+    email: "lai@newxe.tw",
+    status: "2",
+  },
+  {
+    id: 4,
+    name: "蔡文筠",
+    nhi_card_no: "000051243364",
+    phone: "0932641571",
+    email: "tsai@newxe.tw",
+    status: "0",
+  },
+  {
+    id: 5,
+    name: "陳韻如",
+    nhi_card_no: "000071471220",
+    phone: "0933414521",
+    email: "chen@newxe.tw",
+    status: "1",
+  },
+  {
+    id: 6,
+    name: "張鈞安",
+    nhi_card_no: "000084715654",
+    phone: "0966414521",
+    email: "chang@newxe.tw",
+    status: "1",
+  },
+];
+
 let data = [
   {
     id: 1,
@@ -92,7 +143,7 @@ router.get("/reset", async (req, res) => {
       res.status(400).json({ err: `資料表 ${tblName} 創建失敗...` });
       return;
     }
-    rs = await tblMember.insertMany(data);
+    rs = await tblMember.insertMany(raw_data);
     console.log(rs);
     console.log({
       message: `TABLE ${tblName} 創建成功...`,
@@ -104,6 +155,7 @@ router.get("/reset", async (req, res) => {
   }
 });
 
+// http://localhost:8888/api/members/
 router.get("/", async (req, res) => {
   const rs = await tblMember.getAll();
   console.log(rs);
@@ -116,8 +168,14 @@ router.get("/", async (req, res) => {
   res.json(data);
 });
 
-// http://localhost:8888/api/members/status/active
 router.get("/status/:flag", (req, res) => {
+  const newData = data.filter((el, idx) => el.status === req.params.flag);
+  console.log(req.params.flag);
+  console.log(newData);
+  res.json(newData);
+});
+
+router.get("/id/:flag", (req, res) => {
   const newData = data.filter((el, idx) => el.status === req.params.flag);
   console.log(req.params.flag);
   console.log(newData);
@@ -215,9 +273,9 @@ const deleteMemberById = async (id, req, res) => {
     res.status(400).json({ err: `刪除(id:${id})資料失敗` });
     return;
   }
-  const theMeber = { ...data[pos] };
+  const theMember = { ...data[pos] };
   data.splice(pos, 1);
-  res.json(theMeber);
+  res.json(theMember);
 };
 
 router.delete("/", (req, res) => {
